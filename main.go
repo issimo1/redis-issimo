@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
+
 	"github.com/issimo1/redis-issimo/tcpserver"
 	"github.com/issimo1/redis-issimo/utils/config"
 	"github.com/issimo1/redis-issimo/utils/logger"
-	"log"
-	"os"
 )
 
 func main() {

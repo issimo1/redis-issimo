@@ -3,13 +3,15 @@ package config
 import (
 	"bufio"
 	"flag"
-	"github.com/issimo1/redis-issimo/utils/logger"
-	"github.com/issimo1/redis-issimo/utils/rand"
+	"fmt"
 	"io"
 	"os"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/issimo1/redis-issimo/utils/logger"
+	"github.com/issimo1/redis-issimo/utils/rand"
 )
 
 const (
@@ -32,7 +34,7 @@ type RedisConfig struct {
 }
 
 var (
-	ConfigPath   = ""
+	Path         = ""
 	GlobalConfig *RedisConfig
 )
 
@@ -86,9 +88,13 @@ func parse(r io.Reader) *RedisConfig {
 	}
 
 	confValue := reflect.ValueOf(newRedisConf).Elem()
+	fmt.Println(confValue)
 	confType := reflect.TypeOf(newRedisConf).Elem()
+	fmt.Println(confType)
 	for i := 0; i < confType.NumField(); i++ {
 		field := confType.Field(i)
+		fmt.Printf("%+v", field)
+		fmt.Println(field.Tag.Get("conf"))
 		fieldName := strings.Trim(field.Tag.Get("conf"), " ")
 		if fieldName == "" {
 			fieldName = field.Name
@@ -97,6 +103,7 @@ func parse(r io.Reader) *RedisConfig {
 		}
 		//fieldName = strings.ToLower(fieldName)
 		fieldValue, ok := lineMap[fieldName]
+		fmt.Println(fieldValue)
 		if ok {
 			switch field.Type.Kind() {
 			case reflect.String:
@@ -120,7 +127,8 @@ func parse(r io.Reader) *RedisConfig {
 }
 
 func Init() {
-	flag.StringVar(&ConfigPath, "conf", "./../../redis.conf", "config file path. default conf=./../redis.conf")
+	// default ./../../redis.conf
+	flag.StringVar(&Path, "conf", "./../../redis1.conf", "config file path. default conf=./../redis.conf")
 	flag.Parse()
-	LoadConfig(ConfigPath)
+	LoadConfig(Path)
 }

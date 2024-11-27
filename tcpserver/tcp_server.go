@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	logger "github.com/issimo1/redis-issimo/utils/logger"
+	"github.com/issimo1/redis-issimo/utils/logger"
 )
 
 type TCPConfig struct {
