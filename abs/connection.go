@@ -1,4 +1,4 @@
-package interval
+package abs
 
 type Connection interface {
 	GetDBIdx() int

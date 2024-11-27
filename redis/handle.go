@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"errors"
+	"github.com/issimo1/redis-issimo/abs"
 	"github.com/issimo1/redis-issimo/redis/connection"
 	"github.com/issimo1/redis-issimo/redis/parser"
 	"io"
@@ -10,18 +11,17 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/issimo1/redis-issimo/redis/interval"
 	"github.com/issimo1/redis-issimo/utils/config"
 	"github.com/issimo1/redis-issimo/utils/logger"
 )
 
 type Handler struct {
 	activeConn *sync.Map
-	engine     interval.Engine
+	engine     abs.Engine
 }
 
 func NewDefaultHandler() *Handler {
-	var e interval.Engine
+	var e abs.Engine
 	if len(config.GlobalConfig.Cluster) > 0 {
 		logger.Info("cluster mode")
 

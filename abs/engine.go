@@ -1,4 +1,4 @@
-package interval
+package abs
 
 import (
 	"github.com/issimo1/redis-issimo/redis/protocol"
